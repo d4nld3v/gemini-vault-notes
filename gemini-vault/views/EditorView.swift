@@ -13,13 +13,9 @@ struct EditorView : View{
     var body: some View{
         VStack(alignment: .leading, spacing: 0) {
            
-            TextField("Título de la nota", text: $note.title)
+            TextField("Title", text: $note.title)
                 .font(.title2)
                 .fontWeight(.bold)
-                .textFieldStyle(PlainTextFieldStyle())
-                .padding(.horizontal, 12)
-                .padding(.top, 12)
-                .padding(.bottom, 8)
             
             Divider()
                 .padding(.horizontal, 12)
@@ -27,7 +23,7 @@ struct EditorView : View{
      
             TextEditor(text: $note.text)
                 .font(.system(size: 18))
-                .padding(12)
+                
         }
     }
 }

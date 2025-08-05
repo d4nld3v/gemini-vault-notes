@@ -1,21 +1,10 @@
-//
-//  ContentView.swift
-//  gemini-vault
-//
-//  Created b        }
-      // Ocultar el título de navegación principal Enriquez Baena on 30/7/25.
-//
 
 import SwiftUI
 
 struct ContentView: View {
-    
-    //lista de notas
+
     @State public var noteList : [Note] = []
-    
-    //id de la nota seleccionada
     @State public var selectedNoteID: UUID?
-    
     
     private var selectedNoteBinding: Binding<Note>? {
         guard let selectedNoteID = selectedNoteID,
@@ -31,7 +20,7 @@ struct ContentView: View {
 
     private func createNewNote() { 
 
-        let newNote = Note(text: "", title: "Nueva Nota")
+        let newNote = Note(text: "", title: "New Note")
 
         noteList.append(newNote)
         selectedNoteID = newNote.id
@@ -54,19 +43,19 @@ struct ContentView: View {
             if let noteBinding = selectedNoteBinding {
                 EditorView(note: noteBinding)
             } else {
-                Text("Selecciona una nota")
+                Text("Select a note to edit")
                     .foregroundColor(.secondary)
             }
         }
            .toolbar {
             ToolbarItem(placement: .navigation) {
                 Button(action: createNewNote) {
-                    Label("Nueva Nota", systemImage: "plus")
+                    Label("New Note", systemImage: "plus")
                 }
             }
             
             ToolbarItem(placement: .primaryAction) {
-                Button("Guardar") {
+                Button("Save") {
                     saveNotes(noteList)
                 }
             }
