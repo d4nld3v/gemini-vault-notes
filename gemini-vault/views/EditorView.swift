@@ -16,13 +16,5 @@ struct EditorView : View{
             .font(.system(size: 18))
             .navigationTitle(note.title)
             .padding(12)
-            .toolbar {
-                ToolbarItem {
-                    Button("Save") {
-                        // Implement save functionality here
-                    }
-                }
-            }
-            
     }
 }

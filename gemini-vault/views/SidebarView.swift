@@ -10,23 +10,11 @@ import SwiftUI
 struct SidebarView: View {
     
     @Binding var noteList: [Note]
-    @Binding var selectedNote: Note
+    @Binding var selectedNoteID: UUID?
 
-
-    var selectedNoteID: Binding<UUID> {
-        Binding<UUID>(
-            get: { selectedNote.id },
-            set: { newID in
-                if let foundNote = noteList.first(where: { $0.id == newID }) {
-                    selectedNote = foundNote
-                }
-            }
-        )
-    }
-    
     var body: some View {
-        List(noteList, selection: selectedNoteID) {
-            note in Text(note.title)
+        List(noteList, selection: $selectedNoteID) { note in
+            Text(note.title)
         }
     }
 }
