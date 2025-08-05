@@ -42,7 +42,7 @@ func loadNotes() -> [Note] {
 func saveNotes(_ notes: [Note]){
     let url = getDocumentsDirectory().appendingPathComponent("notes.json")
     do {
-        let data = try JSONEncoder().encode(notes)
+        let data = try JSONEncoder().encode(notes.reversed())
         try data.write(to: url)
         print("saved notes!")
     }

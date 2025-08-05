@@ -18,19 +18,36 @@ struct ContentView: View {
         )
     }
 
-    private func createNewNote() { 
+    private func createNewNote() {
 
         let newNote = Note(text: "", title: "New Note")
 
-        noteList.append(newNote)
+        noteList.insert(newNote, at: 0)
         selectedNoteID = newNote.id
 
         saveNotes(noteList)
     }
     
+    private func deleteSelectedNote() {
+        guard let selectedNoteID = selectedNoteID,
+              let indexToDelete = noteList.firstIndex(where: { $0.id == selectedNoteID }) else {
+            return
+        }
+        
+        noteList.remove(at: indexToDelete)
+        
+        if !noteList.isEmpty {
+            self.selectedNoteID = noteList.first?.id
+        } else {
+            self.selectedNoteID = nil
+        }
+        
+        saveNotes(noteList)
+    }
+    
     init() {
         let initialNotes: [Note] = loadNotes()
-        _noteList = State(initialValue: initialNotes)
+        _noteList = State(initialValue: initialNotes.reversed())
        
         _selectedNoteID = State(initialValue: initialNotes.first?.id)
     }
@@ -59,6 +76,12 @@ struct ContentView: View {
                     saveNotes(noteList)
                 }
             }
+               
+               ToolbarItem(placement:  .navigation) {
+                   Button(action: deleteSelectedNote) {
+                       Label("Delete", systemImage: "trash")
+                   }
+               }
         }
         .navigationTitle("") 
     }
