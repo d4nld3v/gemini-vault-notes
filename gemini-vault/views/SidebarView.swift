@@ -15,7 +15,9 @@ struct SidebarView: View {
     var body: some View {
         List(noteList, selection: $selectedNoteID) { note in
             Text(note.title)
+                .padding(.vertical, 2)
         }
+        .navigationTitle("")
     }
 }
 

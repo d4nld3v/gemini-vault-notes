@@ -2,7 +2,8 @@
 //  ContentView.swift
 //  gemini-vault
 //
-//  Created by Daniel Enriquez Baena on 30/7/25.
+//  Created b        }
+      // Ocultar el título de navegación principal Enriquez Baena on 30/7/25.
 //
 
 import SwiftUI
@@ -15,7 +16,7 @@ struct ContentView: View {
     //id de la nota seleccionada
     @State public var selectedNoteID: UUID?
     
-    // Binding para la nota seleccionada que actualiza directamente el noteList
+    
     private var selectedNoteBinding: Binding<Note>? {
         guard let selectedNoteID = selectedNoteID,
               let index = noteList.firstIndex(where: { $0.id == selectedNoteID }) else { 
@@ -26,6 +27,16 @@ struct ContentView: View {
             get: { noteList[index] },
             set: { noteList[index] = $0 }
         )
+    }
+
+    private func createNewNote() { 
+
+        let newNote = Note(text: "", title: "Nueva Nota")
+
+        noteList.append(newNote)
+        selectedNoteID = newNote.id
+
+        saveNotes(noteList)
     }
     
     init() {
@@ -47,13 +58,20 @@ struct ContentView: View {
                     .foregroundColor(.secondary)
             }
         }
-        .toolbar {
-            ToolbarItem {
-                Button("Save") {
+           .toolbar {
+            ToolbarItem(placement: .navigation) {
+                Button(action: createNewNote) {
+                    Label("Nueva Nota", systemImage: "plus")
+                }
+            }
+            
+            ToolbarItem(placement: .primaryAction) {
+                Button("Guardar") {
                     saveNotes(noteList)
                 }
             }
         }
+        .navigationTitle("") 
     }
 }
 
